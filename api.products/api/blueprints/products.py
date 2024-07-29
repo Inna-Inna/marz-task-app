@@ -10,7 +10,9 @@ products_blueprint = Blueprint('products_blueprint', __name__)
 def get_all_products():
     product_schema = ProductSchema(many=True)
     try:
-        products = Product.select().dicts()
+        products = Product.select().where(
+            Product.ProductStatus == 'Active'
+        ).dicts()
         products_serialized = product_schema.dump(products)
     except Exception as err:
         return {'data': [], 'message': str(err)}, 500

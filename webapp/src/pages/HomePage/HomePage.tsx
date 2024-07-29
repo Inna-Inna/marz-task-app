@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
 import DraggableList from "../../components/DraggableList/DraggableList";
-import Spinner from "../../components/Spinner/Spinner";
 import { Order, OrderData } from "../../components/interfaces";
 import { getInPipelineData, updateOrderStatus } from "../ApiHelper";
-import PageWrapper from '../PageWrapper';
 import {DATA_STATES} from "../../constants";
+import MainContent from "../MainContent";
 
 
 interface IdList {
@@ -82,57 +81,36 @@ const HomePage = () => {
   }, []);
 
   let content;
-  if (loadingState === DATA_STATES.waiting)
-    content = (
-      <div
-        className="flex flex-row justify-center w-full pt-4"
-        data-testid="loading-spinner-container"
-      >
-        <Spinner />
-      </div>
-    );
-  else if (loadingState === DATA_STATES.loaded) 
-    content = (
-      <div
-        className="flex flex-row justify-center w-full pt-4"
-        data-testid="pipeline-container"
-      >
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <DraggableList
-            ID='0'
-            listTitle='Queued'
-            removeOrder={(order: Order) => updateOrder(order)}
-            items={data.Queued}
-          />
-          <DraggableList
-            ID='1'
-            listTitle='In Progess'
-            removeOrder={(order: Order) => updateOrder(order)}
-            items={data.InProgress}
-          />
-          <DraggableList
-            ID='2'
-            listTitle='QA'
-            removeOrder={(order: Order) => updateOrder(order)}
-            items={data.QA}
-          />
-        </DragDropContext>
-      </div>
-    );
-  else
-    content = (
-      <div
-        className="flex flex-row justify-center w-full pt-4 text-3xl font-bold text-white"
-        data-testid="error-container"
-      >
-        An error occurred fetching the data!
-      </div>
-    );
+  content = (
+    <div
+      className="flex flex-row justify-center w-full pt-4"
+      data-testid="pipeline-container"
+    >
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <DraggableList
+          ID='0'
+          listTitle='Queued'
+          removeOrder={(order: Order) => updateOrder(order)}
+          items={data.Queued}
+        />
+        <DraggableList
+          ID='1'
+          listTitle='In Progess'
+          removeOrder={(order: Order) => updateOrder(order)}
+          items={data.InProgress}
+        />
+        <DraggableList
+          ID='2'
+          listTitle='QA'
+          removeOrder={(order: Order) => updateOrder(order)}
+          items={data.QA}
+        />
+      </DragDropContext>
+    </div>
+  );
 
   return (
-    <PageWrapper>
-      { content }
-    </PageWrapper>
+    <MainContent loadingState={loadingState} content={content}/>
   );
 }
 

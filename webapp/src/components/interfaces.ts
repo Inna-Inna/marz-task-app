@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import type { DraggableProvided } from 'react-beautiful-dnd';
 
 export interface Order {
@@ -24,6 +25,10 @@ export interface ProductData {
     items: Product[];
 }
 
+export interface ProductListProps {
+    items: Product[];
+}
+
 export interface DraggableItemProps extends Order{
     draggableProvided: DraggableProvided;
     removeOrder: (order: Order) => void;
@@ -43,4 +48,9 @@ export interface HeaderLink {
 
 export interface HeaderProps {
     links: HeaderLink[];
+}
+
+export interface MainContentProps {
+    loadingState: string;
+    content: ReactElement;
 }

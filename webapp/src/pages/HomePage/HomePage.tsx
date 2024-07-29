@@ -6,12 +6,8 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Order, OrderData } from "../../components/interfaces";
 import { getInPipelineData, updateOrderStatus } from "../ApiHelper";
 import PageWrapper from '../PageWrapper';
+import {DATA_STATES} from "../../constants";
 
-const DATA_STATES = {
-  waiting: 'WAITING',
-  loaded: 'LOADED',
-  error: 'ERROR'
-};
 
 interface IdList {
   '0': string;
@@ -129,7 +125,7 @@ const HomePage = () => {
         className="flex flex-row justify-center w-full pt-4 text-3xl font-bold text-white"
         data-testid="error-container"
       >
-        An error occured fetching the data!
+        An error occurred fetching the data!
       </div>
     );
 

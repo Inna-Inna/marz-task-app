@@ -56,7 +56,6 @@ class EnumField(Field):
             )
         return value
 
-    @staticmethod
     def python_value(self, value):
         return value
 
